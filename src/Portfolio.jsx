@@ -442,7 +442,7 @@ const Portfolio = () => {
 
       <footer className="pf-footer">
         <p>
-          © {new Date().getFullYear()} Krishna Raja Sree · Built with ❤️ using
+          © {new Date().getFullYear()} Krishna Raja Sree 
           React.
         </p>
       </footer>
