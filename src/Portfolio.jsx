@@ -1,5 +1,5 @@
 // src/Portfolio.jsx
-import React from "react";
+import React, { useRef } from "react";
 import {
   FaLinkedin,
   FaGithub,
@@ -8,13 +8,37 @@ import {
   FaServer,
   FaChartBar,
 } from "react-icons/fa";
-import "./Portfolio.css";
 import { FaDownload } from "react-icons/fa";
+import emailjs from "@emailjs/browser";
+import "./Portfolio.css";
 import profileImg from "./assets/profile.jpg"; // or your actual file name
 
-
-
 const Portfolio = () => {
+  // EmailJS form reference
+  const formRef = useRef(null);
+
+  const handleSendEmail = (e) => {
+    e.preventDefault();
+
+    emailjs
+      .sendForm(
+        "service_noovsyg",      // your EmailJS service ID
+        "template_h415atk",     // your EmailJS template ID
+        formRef.current,
+        "tM9eDbgDko1-UjJaD"     // your EmailJS public key
+      )
+      .then(
+        () => {
+          alert("Message sent successfully! I will get back to you soon.");
+          e.target.reset();
+        },
+        (error) => {
+          console.error("EmailJS Error:", error);
+          alert("Something went wrong. Please try again later.");
+        }
+      );
+  };
+
   return (
     <div className="pf-root">
       {/* Navbar */}
@@ -52,20 +76,20 @@ const Portfolio = () => {
           </p>
           <div className="pf-hero-actions">
             <a href="#projects" className="pf-btn pf-btn-primary">
-                View Projects
+              View Projects
             </a>
             <a href="#contact" className="pf-btn pf-btn-outline">
-                Let&apos;s Collaborate
+              Let&apos;s Collaborate
             </a>
             <a
-  href="/KrishnaRajaSree_Resume.pdf"
-  className="pf-btn pf-btn-outline"
-  download
->
-  <FaDownload style={{ marginRight: "8px" }} />
-  Download Resume
-</a>
-</div>
+              href="/KrishnaRajaSree_Resume.pdf"
+              className="pf-btn pf-btn-outline"
+              download
+            >
+              <FaDownload style={{ marginRight: "8px" }} />
+              Download Resume
+            </a>
+          </div>
 
           <div className="pf-socials">
             <a
@@ -94,8 +118,8 @@ const Portfolio = () => {
 
         <div className="pf-hero-photo-wrapper">
           <div className="pf-hero-photo-circle">
-  <img src={profileImg} alt="Krishna Raja Sree" />
-</div>
+            <img src={profileImg} alt="Krishna Raja Sree" />
+          </div>
 
           <div className="pf-hero-badge">
             <p>Available for Freelance</p>
@@ -228,148 +252,144 @@ const Portfolio = () => {
       </section>
 
       {/* Projects */}
-      {/* Projects */}
-<section id="projects" className="pf-section pf-projects">
-  <div className="pf-section-header">
-    <h2>Featured Projects</h2>
-    <p>Some of the work I&apos;m proud of.</p>
-  </div>
+      <section id="projects" className="pf-section pf-projects">
+        <div className="pf-section-header">
+          <h2>Featured Projects</h2>
+          <p>Some of the work I&apos;m proud of.</p>
+        </div>
 
-  <div className="pf-projects-grid">
+        <div className="pf-projects-grid">
+          {/* Book Exchange Platform */}
+          <div className="pf-project-card">
+            <h3>Book Exchange Platform (MERN)</h3>
+            <p>
+              A full-stack web application that enables students to list, search,
+              and exchange books within their community. Includes secure login,
+              book management, and a smooth user experience.
+            </p>
 
-    {/* Book Exchange Platform */}
-    {/* Book Exchange Platform */}
-<div className="pf-project-card">
-  <h3>Book Exchange Platform (MERN)</h3>
-  <p>
-    A full-stack web application that enables students to list, search,
-    and exchange books within their community. Includes secure login,
-    book management, and a smooth user experience.
-  </p>
+            <p className="pf-project-stack">
+              Stack: MongoDB, Express.js, React.js, Node.js
+            </p>
 
-  <p className="pf-project-stack">
-    Stack: MongoDB, Express.js, React.js, Node.js
-  </p>
+            <div className="pf-project-links">
+              <a
+                href="https://bookexchangeplatform.vercel.app/"
+                target="_blank"
+                rel="noreferrer"
+                className="pf-btn pf-btn-primary"
+              >
+                Live Demo
+              </a>
+              <a
+                href="https://github.com/krishnasree76/BookExchangePlatform"
+                target="_blank"
+                rel="noreferrer"
+                className="pf-btn pf-btn-outline"
+              >
+                Source Code
+              </a>
+            </div>
+          </div>
 
-  <div className="pf-project-links">
-    <a
-      href="https://bookexchangeplatform.vercel.app/"
-      target="_blank"
-      rel="noreferrer"
-      className="pf-btn pf-btn-primary"
-    >
-      Live Demo
-    </a>
-    <a
-      href="https://github.com/krishnasree76/BookExchangePlatform"
-      target="_blank"
-      rel="noreferrer"
-      className="pf-btn pf-btn-outline"
-    >
-      Source Code
-    </a>
-  </div>
-</div>
+          {/* College Chronicle */}
+          <div className="pf-project-card">
+            <h3>College Chronicle (MERN)</h3>
+            <p>
+              A centralized portal for managing college announcements, resources,
+              and event updates with role-based access for admins and students.
+            </p>
+            <p className="pf-project-stack">
+              Stack: React, Node.js, Express, MongoDB
+            </p>
+            <div className="pf-project-links">
+              <a
+                href="https://collegechronicle-alpha.vercel.app/"
+                target="_blank"
+                rel="noreferrer"
+                className="pf-btn pf-btn-primary"
+              >
+                Live Demo
+              </a>
+              <a
+                href="https://github.com/krishnasree76/College-Chronicle"
+                target="_blank"
+                rel="noreferrer"
+                className="pf-btn pf-btn-outline"
+              >
+                Source Code
+              </a>
+            </div>
+          </div>
 
+          {/* Smart PDF Chatbot */}
+          <div className="pf-project-card">
+            <h3>Smart PDF Chatbot (React + LLM)</h3>
+            <p>
+              An AI-powered chatbot that allows users to upload PDFs, ask natural
+              language questions, use voice input, and compare multiple documents
+              with automated insights.
+            </p>
+            <p className="pf-project-stack">
+              Stack: React, pdf-parse, Web Speech API, LLM API
+            </p>
 
-    {/* College Chronicle */}
-    <div className="pf-project-card">
-      <h3>College Chronicle (MERN)</h3>
-      <p>
-        A centralized portal for managing college announcements, resources,
-        and event updates with role-based access for admins and students.
-      </p>
-      <p className="pf-project-stack">
-        Stack: React, Node.js, Express, MongoDB
-      </p>
-      <div className="pf-project-links">
-        <a
-          href="https://collegechronicle-alpha.vercel.app/"
-          target="_blank"
-          rel="noreferrer"
-          className="pf-btn pf-btn-primary"
-        >
-          Live Demo
-        </a>
-        <a
-          href="https://github.com/krishnasree76/College-Chronicle"
-          target="_blank"
-          rel="noreferrer"
-          className="pf-btn pf-btn-outline"
-        >
-          Source Code
-        </a>
-      </div>
-    </div>
+            <div className="pf-project-links">
+              <a
+                href="https://smartpdfchatbot.vercel.app/"
+                target="_blank"
+                rel="noreferrer"
+                className="pf-btn pf-btn-primary"
+              >
+                Live Demo
+              </a>
+              <a
+                href="https://github.com/krishnasree76/Smart-PDF-Chatbot/tree/master"
+                target="_blank"
+                rel="noreferrer"
+                className="pf-btn pf-btn-outline"
+              >
+                Source Code
+              </a>
+            </div>
+          </div>
 
-    {/* Smart PDF Chatbot */}
-    <div className="pf-project-card">
-      <h3>Smart PDF Chatbot (React + LLM)</h3>
-      <p>
-        An AI-powered chatbot that allows users to upload PDFs, ask natural
-        language questions, use voice input, and compare multiple documents
-        with automated insights.
-      </p>
-      <p className="pf-project-stack">
-        Stack: React, pdf-parse, Web Speech API, LLM API
-      </p>
+          {/* Netflix Dashboard */}
+          <div className="pf-project-card">
+            <h3>Netflix TV Shows & Movies Dashboard (Tableau)</h3>
+            <p>
+              An interactive Tableau dashboard built using the Netflix titles
+              dataset to analyze content by genre, country, ratings, and release
+              year. Helps users explore viewing trends and understand the
+              composition of the Netflix library.
+            </p>
 
-      <div className="pf-project-links">
-        <a
-          href="https://smartpdfchatbot.vercel.app/"
-          target="_blank"
-          rel="noreferrer"
-          className="pf-btn pf-btn-primary"
-        >
-          Live Demo
-        </a>
-        <a
-          href="https://github.com/krishnasree76/Smart-PDF-Chatbot/tree/master"
-          target="_blank"
-          rel="noreferrer"
-          className="pf-btn pf-btn-outline"
-        >
-          Source Code
-        </a>
-      </div>
-    </div>
-    {/* Netflix Dashboard */}
-<div className="pf-project-card">
-  <h3>Netflix TV Shows & Movies Dashboard (Tableau)</h3>
-  <p>
-    An interactive Tableau dashboard built using the Netflix titles dataset to
-    analyze content by genre, country, ratings, and release year. Helps users
-    explore viewing trends and understand the composition of the Netflix library.
-  </p>
+            <p className="pf-project-stack">
+              Stack: Tableau, CSV/Excel (Netflix Titles Dataset), Data
+              Visualization
+            </p>
 
-  <p className="pf-project-stack">
-    Stack: Tableau, CSV/Excel (Netflix Titles Dataset), Data Visualization
-  </p>
-
-  <div className="pf-project-links">
-    <a
-      href="https://public.tableau.com/app/profile/krishna.raja.sree.bonam/viz/NetflixDashboard_17456785051100/Dashboard1"
-      target="_blank"
-      rel="noreferrer"
-      className="pf-btn pf-btn-primary"
-    >
-      View Dashboard
-    </a>
-    <a
-      href="https://github.com/krishnasree76/Netflix-Tv-Shows-Series-Dashboard"
-      target="_blank"
-      rel="noreferrer"
-      className="pf-btn pf-btn-outline"
-    >
-      Project Files (GitHub)
-    </a>
-  </div>
-</div>
-
-
-  </div>
-</section>
-
+            <div className="pf-project-links">
+              <a
+                href="https://public.tableau.com/app/profile/krishna.raja.sree.bonam/viz/NetflixDashboard_17456785051100/Dashboard1"
+                target="_blank"
+                rel="noreferrer"
+                className="pf-btn pf-btn-primary"
+              >
+                View Dashboard
+              </a>
+              <a
+                href="https://github.com/krishnasree76/Netflix-Tv-Shows-Series-Dashboard"
+                target="_blank"
+                rel="noreferrer"
+                className="pf-btn pf-btn-outline"
+              >
+                Project Files (GitHub)
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
 
       {/* Contact */}
       <section id="contact" className="pf-section pf-contact">
@@ -380,6 +400,7 @@ const Portfolio = () => {
             dashboard? I&apos;d love to hear from you.
           </p>
         </div>
+
         <div className="pf-contact-content">
           <div className="pf-contact-info">
             <p>
@@ -388,6 +409,7 @@ const Portfolio = () => {
                 sreebonam555@gmail.com
               </a>
             </p>
+
             <p>
               <strong>LinkedIn:</strong>{" "}
               <a
@@ -398,6 +420,7 @@ const Portfolio = () => {
                 Krishna Raja Sree Bonam
               </a>
             </p>
+
             <p>
               <strong>GitHub:</strong>{" "}
               <a
@@ -408,31 +431,53 @@ const Portfolio = () => {
                 krishnasree76
               </a>
             </p>
-            <p>
-  <strong>Resume:</strong>{" "}
-  <a
-    href="/KrishnaRajaSree_Resume.pdf"
-    download
-    target="_blank"
-    rel="noreferrer"
-  >
-    Download PDF
-  </a>
-</p>
 
+            <p>
+              <strong>Resume:</strong>{" "}
+              <a
+                href="/KrishnaRajaSree_Resume.pdf"
+                download
+                target="_blank"
+                rel="noreferrer"
+              >
+                Download PDF
+              </a>
+            </p>
+
+            <p>
+              <strong>WhatsApp:</strong>{" "}
+              <a
+                href="https://wa.me/919063643676?text=Hi%20Krishna,%20I%20saw%20your%20portfolio%20and%20would%20like%20to%20discuss%20an%20opportunity."
+                target="_blank"
+                rel="noreferrer"
+              >
+                Chat on WhatsApp
+              </a>
+            </p>
           </div>
+
           <form
+            ref={formRef}
             className="pf-contact-form"
-            onSubmit={(e) => {
-              e.preventDefault();
-              alert(
-                "This is a front-end only form. You can connect it to a service like Formspree or EmailJS."
-              );
-            }}
+            onSubmit={handleSendEmail}
           >
-            <input type="text" placeholder="Your Name" required />
-            <input type="email" placeholder="Your Email" required />
-            <textarea placeholder="Tell me about your project..." required />
+            <input
+              type="text"
+              name="from_name"
+              placeholder="Your Name"
+              required
+            />
+            <input
+              type="email"
+              name="from_email"
+              placeholder="Your Email"
+              required
+            />
+            <textarea
+              name="message"
+              placeholder="Tell me about your project..."
+              required
+            />
             <button type="submit" className="pf-btn pf-btn-primary">
               Send Message
             </button>
@@ -442,7 +487,7 @@ const Portfolio = () => {
 
       <footer className="pf-footer">
         <p>
-          © {new Date().getFullYear()} Krishna Raja Sree 
+          © {new Date().getFullYear()} Krishna Raja Sree · Built with ❤️ using
           React.
         </p>
       </footer>
